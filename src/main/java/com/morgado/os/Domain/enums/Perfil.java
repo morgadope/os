@@ -1,35 +1,35 @@
 package com.morgado.os.Domain.enums;
 
-
 import lombok.Getter;
 
-public enum Prioridade {
+import javax.persistence.GeneratedValue;
 
-    BAIXA(0, "BAIXA"), MEDIA(1, "MEDIA"), ALTA(2, "ALTA");
+public enum Perfil {
+
+    ADMIN(1, "ROLE_ADMIN"), PADRAO(2, "ROLE_PADRAO");
     @Getter
     private final Integer codigo;
     @Getter
     private final String descricao;
 
-    Prioridade(Integer codigo, String descricao) {
+    Perfil(Integer codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
 
-    public static Prioridade toEnum(Integer cod) {
+    public static Perfil toEnum(Integer cod) {
 
         if (cod == null) {
             return null;
         }
 
-        for (Prioridade x : Prioridade.values()) {
+        for (Perfil x : Perfil.values()) {
             if (cod.equals(x.getCodigo())) {
                 return x;
             }
         }
 
-        throw new IllegalArgumentException("Código de Perfil inválido! " + cod);
+        throw new IllegalArgumentException("Código inválido! " + cod);
     }
 
 }
-
