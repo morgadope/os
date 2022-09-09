@@ -1,10 +1,11 @@
 package com.morgado.os.Domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.morgado.os.Domain.enums.Prioridade;
 import com.morgado.os.Domain.enums.Status;
 import lombok.*;
 
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 
@@ -12,16 +13,24 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @EqualsAndHashCode
+@Entity
 public class OS {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataAbertura;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private LocalDateTime dataFechamento;
     private Integer prioridade;
     private String observacoes;
     private Integer status;
+    @ManyToOne
+    @JoinColumn(name = "tecnico_id")
     private Tecnico tecnico;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Cliente cliente;
 
     public OS(Prioridade prioridade, Status status) {
